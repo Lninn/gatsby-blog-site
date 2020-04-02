@@ -25,11 +25,12 @@ gatsby develop
 
 ## 🎓 Todo
 
+- create blog template folder
+
 <br />
 
-## 💫 Deploy
+## 💫 部署
 
-<a href="https://surge.sh/">
-  <img src="https://surge.sh/images/logos/svg/surge-logo.svg" style="max-width: 3.5rem; transform: translateY(0.33em)">
-</a>
-<!-- AUTO-GENERATED-CONTENT:END -->
+[Surge](https://surge.sh/)
+
+[Aliyun](https://cn.aliyun.com/)

@@ -1,18 +1,55 @@
 module.exports = {
   siteMetadata: {
-    title: `Title from siteMetadata`,
-    description: `A simple description about pandas eating lots...`,
-    author: `gatsbyjs`,
+    title: `Gatsby Starter Blog`,
+    author: {
+      name: `Kyle Mathews`,
+      summary: `who lives and works in San Francisco building useful things.`,
+    },
+    description: `A starter blog demonstrating what Gatsby can do.`,
+    siteUrl: `https://gatsby-starter-blog-demo.netlify.com/`,
+    social: {
+      twitter: `kylemathews`,
+    },
   },
   plugins: [
     `gatsby-plugin-less`,
-    `gatsby-transformer-remark`,
+    `gatsby-plugin-sharp`,
+    `gatsby-transformer-sharp`,
+    {
+      resolve: `gatsby-transformer-remark`,
+      options: {
+        plugins: [
+          {
+            resolve: `gatsby-remark-images`,
+            options: {
+              maxWidth: 590,
+            },
+          },
+          {
+            resolve: `gatsby-remark-responsive-iframe`,
+            options: {
+              wrapperStyle: `margin-bottom: 1.0725rem`,
+            },
+          },
+          `gatsby-remark-prismjs`,
+          `gatsby-remark-copy-linked-files`,
+          `gatsby-remark-smartypants`,
+        ],
+      },
+    },
     `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        name: `src`,
-        path: `${__dirname}/src/`,
+        name: `blog`,
+        path: `${__dirname}/content/blog`,
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `assets`,
+        path: `${__dirname}/content/assets`,
       },
     },
     {

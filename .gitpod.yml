@@ -3,4 +3,4 @@ ports:
     onOpen: open-preview
 tasks:
   - init: yarn install
-    command: gatsby develop
+    command: yarn develop

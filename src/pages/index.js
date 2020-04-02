@@ -1,50 +1,68 @@
 import React from "react"
-import styles from './index.module.less'
 import { Link, graphql } from "gatsby"
+
 import Layout from "../components/layout"
+import SEO from "../components/seo"
+import { rhythm } from "../utils/typography"
 
-export default ({ data }) => (
-  <Layout>
-    <div>
-      <h1 className={styles.pageTitle}>
-        Amazing Pandas Eating Things
-      </h1>
-      <h4>{data.allMarkdownRemark.totalCount} Posts</h4>
-      {data.allMarkdownRemark.edges.map(({ node }) => (
-        <div key={node.id}>
-        <Link
-          className={styles.link}
-          to={node.fields.slug}
-        >
-          <h3>
-            {node.frontmatter.title}{" "}
-            <span className={styles.date}>
-              — {node.frontmatter.date}
-            </span>
-          </h3>
-          <p>{node.excerpt}</p>
-        </Link>
-        </div>
-      ))}
-    </div>
-  </Layout>
-)
+const BlogIndex = ({ data, location }) => {
+  const siteTitle = data.site.siteMetadata.title
+  const posts = data.allMarkdownRemark.edges
 
-export const query = graphql`
+  return (
+    <Layout location={location} title={siteTitle}>
+      <SEO title="All posts" />
+      {posts.map(({ node }) => {
+        const title = node.frontmatter.title || node.fields.slug
+        return (
+          <article key={node.fields.slug}>
+            <header>
+              <h3
+                style={{
+                  marginBottom: rhythm(1 / 4),
+                }}
+              >
+                <Link style={{ boxShadow: `none` }} to={node.fields.slug}>
+                  {title}
+                </Link>
+              </h3>
+              <small>{node.frontmatter.date}</small>
+            </header>
+            <section>
+              <p
+                dangerouslySetInnerHTML={{
+                  __html: node.frontmatter.description || node.excerpt,
+                }}
+              />
+            </section>
+          </article>
+        )
+      })}
+    </Layout>
+  )
+}
+
+export default BlogIndex
+
+export const pageQuery = graphql`
   query {
+    site {
+      siteMetadata {
+        title
+      }
+    }
     allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
-      totalCount
       edges {
         node {
-          id
-          frontmatter {
-            title
-            date(formatString: "DD MMMM, YYYY")
-          }
+          excerpt
           fields {
             slug
           }
-          excerpt
+          frontmatter {
+            date(formatString: "MMMM DD, YYYY")
+            title
+            description
+          }
         }
       }
     }
