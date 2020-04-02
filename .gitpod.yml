@@ -1,0 +1,6 @@
+ports:
+  - port: 8000
+    onOpen: open-preview
+tasks:
+  - init: yarn install && npm install -g gatsby-cli surge
+    command: gatsby develop
