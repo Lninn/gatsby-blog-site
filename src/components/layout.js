@@ -1,8 +1,70 @@
-import React from "react"
+import React, { useState } from "react"
 import styles from './layout.module.less'
 import { Link } from "gatsby"
 
 import { rhythm } from "../utils/typography"
+
+const Arrow = function() {
+  const [dir, setDir] = useState("rotate(0deg)")
+
+  const handleArrowClick = function() {
+    if (dir === "rotate(180deg)") {
+      setDir("rotate(0deg)")
+    } else {
+      setDir("rotate(180deg)")
+    }
+  }
+
+  return (
+    <div
+      role="button"
+      tabIndex="0"
+      style={{ transform: dir }}
+      onClick={handleArrowClick}
+      onKeyPress={handleArrowClick}
+    >
+      <svg viewBox="0 0 18 18" role="presentation" aria-hidden="true" focusable="false" style={{height: "20px", width: "20px", display: "block", fill: "currentcolor"}}>
+        <path d="m16.29 4.3a1 1 0 1 1 1.41 1.42l-8 8a1 1 0 0 1 -1.41 0l-8-8a1 1 0 1 1 1.41-1.42l7.29 7.29z" fill-rule="evenodd">
+        </path>
+      </svg>
+    </div>
+  )
+}
+
+const Menu = function() {
+  return (
+    <div style={{ float: 'right' }}>
+      <Arrow />
+    </div>
+  )
+}
+
+// const Menu = function() {
+//   const data = [
+//     {
+//       name: 'My Files',
+//       path: '/my-files/',
+//     },
+//     {
+//       name: 'About',
+//       path: '/about/',
+//     },
+//   ]
+
+//   return (
+//     <ul className={styles.menus}>
+//       {
+//         data.map(t => (
+//           <li key={t.name} className={styles.menuItem}>
+//             <Link to={t.path}>
+//               {t.name}
+//             </Link>
+//           </li>
+//         ))
+//       }
+//     </ul>
+//   )
+// }
 
 const Layout = ({ location, title, children }) => {
   return (
@@ -27,18 +89,7 @@ const Layout = ({ location, title, children }) => {
             {title}
           </h3>
         </Link>
-        <Link
-          to={`/about/`}
-          className={styles.menuItem}
-        >
-          About
-        </Link>
-        <Link
-          to={`/my-files/`}
-          className={styles.menuItem}
-        >
-          My Files
-        </Link>
+        <Menu />
       </header>
       <main>{children}</main>
       <footer style={{ textAlign: 'center' }}>
