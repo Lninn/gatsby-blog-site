@@ -4,67 +4,55 @@ import { Link } from "gatsby"
 
 import { rhythm } from "../utils/typography"
 
-const Arrow = function() {
-  const [dir, setDir] = useState("rotate(0deg)")
-
-  const handleArrowClick = function() {
-    if (dir === "rotate(180deg)") {
-      setDir("rotate(0deg)")
-    } else {
-      setDir("rotate(180deg)")
-    }
-  }
-
+const MenuIcon = function() {
   return (
-    <div
-      role="button"
-      tabIndex="0"
-      style={{ transform: dir }}
-      onClick={handleArrowClick}
-      onKeyPress={handleArrowClick}
+    <svg
+      aria-hidden="true"
+      focusable="false"
+      data-prefix="fas"
+      data-icon="bars"
+      role="img"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 448 512"
     >
-      <svg viewBox="0 0 18 18" role="presentation" aria-hidden="true" focusable="false" style={{height: "20px", width: "20px", display: "block", fill: "currentcolor"}}>
-        <path d="m16.29 4.3a1 1 0 1 1 1.41 1.42l-8 8a1 1 0 0 1 -1.41 0l-8-8a1 1 0 1 1 1.41-1.42l7.29 7.29z" fill-rule="evenodd">
-        </path>
-      </svg>
-    </div>
+      <path fill="currentColor" d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z">
+      </path>
+    </svg>
   )
 }
 
 const Menu = function() {
+  const data = [
+    {
+      name: "Categroies",
+      path: "/",
+    },
+    {
+      name: "My Files",
+      path: "/my-files/",
+    },
+    {
+      name: "About",
+      path: "/about/",
+    },
+  ]
+
+  const [menus] = useState(data)
+
   return (
-    <div style={{ float: 'right' }}>
-      <Arrow />
-    </div>
+    <ul className={styles.menus}>
+      {
+        menus.map(t => (
+          <li key={t.name} className={styles.menuItem}>
+            <Link to={t.path}>
+              {t.name}
+            </Link>
+          </li>
+        ))
+      }
+    </ul>
   )
 }
-
-// const Menu = function() {
-//   const data = [
-//     {
-//       name: 'My Files',
-//       path: '/my-files/',
-//     },
-//     {
-//       name: 'About',
-//       path: '/about/',
-//     },
-//   ]
-
-//   return (
-//     <ul className={styles.menus}>
-//       {
-//         data.map(t => (
-//           <li key={t.name} className={styles.menuItem}>
-//             <Link to={t.path}>
-//               {t.name}
-//             </Link>
-//           </li>
-//         ))
-//       }
-//     </ul>
-//   )
-// }
 
 const Layout = ({ location, title, children }) => {
   return (
@@ -83,6 +71,7 @@ const Layout = ({ location, title, children }) => {
               display: 'inline-block',
               fontFamily: `Montserrat, sans-serif`,
               marginTop: 0,
+              fontSize: rhythm(3 / 5),
             }} 
             className={styles.title}
           >
